@@ -1,0 +1,29 @@
+<div>
+  <form (submit)="createCake()">
+    <label for="baker">Baker name:</label>
+    <input type="text" name="newCake.baker" [(ngModel)]="newCake.baker">
+    <label for="url">Image url:</label>
+    <input type="text" name="newCake.url" [(ngModel)]="newCake.url">
+    <button>Submit</button>
+  </form>
+  {{newCake | json}}
+  <div *ngFor="let cake of cakes" id="cake-list">
+    <img src="{{cake.url}}" alt="cake pic" (click)="cakeClickedPopulate(cake._id)">
+    <form (submit)="updateCakeRating(cake._id)">
+      <select name="newRating.stars" [(ngModel)]="newRating.stars">
+        <option value="5">5 stars</option>
+        <option value="4">4 stars</option>
+        <option value="3">3 stars</option>
+        <option value="2">2 stars</option>
+        <option value="1">1 stars</option>
+      </select>
+      <textarea name="newRating.comment" cols="30" rows="10" placeholder="Type your comment here"
+        [(ngModel)]="newRating.comment"></textarea>
+      <button>Rate!</button>
+    </form>
+  </div>
+
+  <div *ngIf="cakeClicked.toggle == true">
+    <app-cake [id]="idToSend"></app-cake>
+  </div>
+</div>
